@@ -1,0 +1,14 @@
+{
+  "python.terminal.activateEnvironment": true,
+  "terminal.integrated.profiles.osx": {
+    "zsh (venv)": {
+      "path": "/bin/zsh",
+      "args": [
+        "-l",
+        "-c",
+        "dir=\"$PWD\"; while [ \"$dir\" != \"/\" ]; do if [ -f \"$dir/.venv/bin/activate\" ]; then . \"$dir/.venv/bin/activate\"; break; fi; dir=\"$(dirname \"$dir\")\"; done; exec zsh -l"
+      ]
+    }
+  },
+  "terminal.integrated.defaultProfile.osx": "zsh (venv)"
+}
