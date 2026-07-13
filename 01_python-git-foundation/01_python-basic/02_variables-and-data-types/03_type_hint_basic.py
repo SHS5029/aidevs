@@ -23,3 +23,43 @@ print("이름:", name)
 print("나이:", age)
 print("키:", height)
 print("학생인가요?", is_student)
+
+
+##
+
+print(f"타입 힌트 예시: {name}, {age}, {is_student}")
+print(type(name), type(age), type(is_student))
+
+msg = "   1000   "
+print(f"입력{msg}입니다.")
+print(f"입력{msg.strip()}입니다.") # strip()은 문자열 양쪽 공백을 제거하는 함수입니다.
+
+####
+
+print("-------------------------------\n")
+
+msg2: str = "12,000,000"
+
+print(f"입력{msg2}입니다.")
+num2 = int(msg2.replace(",", "")) # replace()는 문자열 안의 특정 문자를 다른 문자로 바꾸는 함수입니다.
+print(f"입력{num2}입니다.")
+
+## jmlee@tonesol.com 에서 id 변수에 jmlee 입력, domain 변수에 tonesol.com 입력, id + domain을 합쳐서 
+## 이메일 주소를 출력하는 예제를 만들어 보세요.
+
+data: str = "jmlee@tonesol.com"
+
+id: str = "jmlee"
+domain: str = "tonesol.com"
+
+email:str = id + "@" + domain
+
+print(f"이메일 주소: {email}")
+
+print("data와 email이 같은가요?", data == email)
+
+print("-------------------------------\n")
+
+id: str = data[:data.index("@")]
+domain: str = data[data.index("@") + 1:data.index(".")]
+print(f"data에서 id: {id}, domain: {domain} 입니다")
