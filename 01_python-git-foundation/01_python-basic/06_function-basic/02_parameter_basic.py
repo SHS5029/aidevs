@@ -8,11 +8,11 @@
 """
 
 
-def greet(name):
+def greet(name: str):
     print(name, "님, 안녕하세요.")
 
 
-def print_score(name, score):
+def print_score(name: str, score: int):
     print(name, "님의 점수는", score, "점입니다.")
 
 

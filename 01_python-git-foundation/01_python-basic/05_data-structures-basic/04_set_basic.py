@@ -32,6 +32,9 @@ print("삭제 후:", tags)
 # in을 사용해 특정 값이 있는지 확인할 수 있습니다.
 print("python 태그가 있나요?", "python" in tags)
 
+if "fastapi" in tags:
+    print("fastapi 태그가 있습니다.")
+
 # set은 집합 연산을 할 수 있습니다.
 backend_tags = {"python", "fastapi", "supabase"}
 frontend_tags = {"python", "streamlit", "ui"}

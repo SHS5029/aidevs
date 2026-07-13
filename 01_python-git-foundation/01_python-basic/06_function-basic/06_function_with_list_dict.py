@@ -8,10 +8,7 @@
 
 
 def calculate_average(scores):
-    total = 0
-
-    for score in scores:
-        total += score
+    total = sum(scores)
 
     return total / len(scores)
 
@@ -35,14 +32,14 @@ user = {
 print_user(user)
 
 
-def filter_passed_students(students):
+def filter_passed_students(students): ##학생들 점수를 입력, 60점 이상인 학생들만 리턴
     passed_students = []
 
     for student in students:
         if student["score"] >= 60:
             passed_students.append(student)
 
-    return passed_students
+    return tuple(passed_students)
 
 
 students = [

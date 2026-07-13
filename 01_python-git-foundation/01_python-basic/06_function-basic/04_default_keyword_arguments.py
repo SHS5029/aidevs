@@ -9,7 +9,7 @@
 """
 
 
-def greet(name, language="ko"):
+def greet(name, language="ko")-> str:
     if language == "ko":
         return f"{name}님, 안녕하세요."
 
@@ -27,7 +27,8 @@ print(greet(name="Mina", language="ko"))
 print(greet(language="en", name="Mina"))
 
 
-def create_user(name, role="member", active=True):
+#유저의 이름, 역할, 활성상태를 딕셔너리로 만드는 함수
+def create_user(name, role="member", active=True)-> dict[str, object]:
     return {
         "name": name,
         "role": role,

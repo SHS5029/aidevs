@@ -18,7 +18,7 @@ def get_grade(score):
     return "D"
 
 
-def is_passed(score):
+def is_passed(score)-> bool:
     return score >= 60
 
 

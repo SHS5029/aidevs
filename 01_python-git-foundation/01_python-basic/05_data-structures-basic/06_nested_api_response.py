@@ -28,6 +28,28 @@ api_response = {
     ],
 }
 
+status_str = api_response["status"]
+print("응답 상태:", status_str)
+
+count_num = api_response["count"]
+data_list = api_response["data"]
+print("데이터 개수:", count_num)
+print("데이터 목록:", data_list)
+
+##tags 갯수를 구하기
+
+for message in data_list:
+    tags = message["tags"]
+    print(f"메시지 ID {message['id']}의 태그 개수:", len(tags))
+print(f"총 개수: {sum(len(message['tags']) for message in data_list)}")
+
+
+
+
+
+
+print("*********************************************************\n*********************************************************\n")
+
 print("응답 상태:", api_response["status"])
 print("데이터 개수:", api_response["count"])
 

@@ -31,6 +31,8 @@ for value in point:
 name_and_score = ("Jean", 95)
 name, score = name_and_score
 
+name, score = ("Jean", 95) # tuple unpacking을 한 줄로 표현할 수도 있습니다.
+
 print("\n이름:", name)
 print("점수:", score)
 

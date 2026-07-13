@@ -12,6 +12,7 @@
 # def는 함수를 만들 때 사용하는 키워드입니다.
 # say_hello는 함수 이름입니다.
 def say_hello():
+    """함수 정의 예제"""
     print("안녕하세요.")
     print("Python 함수 연습을 시작합니다.")
 

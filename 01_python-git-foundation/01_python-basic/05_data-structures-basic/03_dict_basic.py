@@ -12,7 +12,9 @@ dict 형태로 자주 다룹니다.
 """
 
 # 중괄호 { }를 사용해 dict를 만듭니다.
-student = {
+#Json과 유사하다.
+
+student: dict[str, object] = {
     "name": "Jean",
     "score": 95,
     "passed": True,
@@ -48,3 +50,6 @@ print("\nkey 목록:", list(student.keys()))
 
 # values()는 value만 꺼냅니다.
 print("value 목록:", list(student.values()))
+
+print("\nkey 목록:", tuple(student.keys()))
+print("value 목록:", tuple(student.values()))
