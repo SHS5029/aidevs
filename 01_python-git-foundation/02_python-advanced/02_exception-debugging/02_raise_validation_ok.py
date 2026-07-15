@@ -4,7 +4,7 @@ r"""raise로 직접 오류를 만드는 예제입니다.
     C:\aidev\01_python-git-foundation
 
 실행 명령:
-    python .\02_python-advanced\02_exception-debugging\02_raise_validation.py
+    python .\02_python-advanced\02_exception-debugging\02_raise_validation_ok.py
 
 이 예제의 목표:
     잘못된 입력을 발견했을 때 함수 안에서 ValueError를 발생시킵니다.
@@ -18,7 +18,7 @@ def validate_question(question: str) -> str:
     cleaned = question.strip()
 
     if cleaned == "":
-        return None
+        raise ValueError("E001: 질문은 비워둘 수 없습니다.")
     return cleaned
 
 
@@ -26,11 +26,12 @@ def main() -> None:
     questions = ["FastAPI란?", "   ", "Supabase란?"]
 
     for question in questions:
-        cleaned_question = validate_question(question)
-        if cleaned_question == None:
-            print("비정상")
-        else:
-            print("정상:", cleaned_question)
+        try:
+            cleaned_question = validate_question(question)
+        except ValueError:
+            print("오류 발생:", ValueError)
+        print("정상:", cleaned_question)
+
 
 
 main()

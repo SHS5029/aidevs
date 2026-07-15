@@ -19,14 +19,21 @@ def create_mock_answer(question: str) -> str:
 
     return f"'{question}'에 대한 첫 번째 프로젝트 구조 연습 답변입니다."
 
+def create_mock_error(question: str) -> str:
+    """실제 AI API 대신 연습용 에러 문장을 만듭니다."""
+
+    return f"'{question}'에 대한 첫 번째 프로젝트 구조 연습 에러입니다."
+
 
 def create_chat_message(question: str) -> ChatMessage:
-    """질문을 받아 ChatMessage object를 만듭니다."""
-
+    """질문을 받아 ChatMessage object를 만듭니다.
+        네트워크 에러를 연습하기 위해 question이 "1"이면 ConnectionError를 발생시킵니다.
+    """
+    if question == "1":
+        raise ConnectionError("연습용 네트워크 에러를 발생시킵니다.")
     answer = create_mock_answer(question)
 
     return ChatMessage(
-        question=question,
         answer=answer,
         model="practice-model",
     )
