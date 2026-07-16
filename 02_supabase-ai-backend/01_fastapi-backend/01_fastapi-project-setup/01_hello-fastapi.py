@@ -26,7 +26,7 @@ main.py 기준 실행:
 from fastapi import FastAPI
 
 
-# FastAPI 객체는 API 서버의 중심입니다.
+# FastAPI 객체는 API 서버의 중심입니다.``
 # 이 객체에 GET, POST 같은 엔드포인트를 하나씩 등록합니다.
 app = FastAPI(
     title="Hello FastAPI",
@@ -50,4 +50,17 @@ def read_root():
 def health_check():
     """서버가 살아 있는지 확인하는 가장 기본적인 점검용 API입니다."""
 
-    return {"status": "ok"}
+    return {"status": "okokok"} 
+
+
+@app.get("/login")
+def login():
+    """로그인 상태를 확인하는 API입니다."""
+
+    return {"status": "login success"}
+
+@app.get("/logout")
+def logout():
+    """로그아웃 상태를 확인하는 API입니다."""
+
+    return {"status": "logout success"}

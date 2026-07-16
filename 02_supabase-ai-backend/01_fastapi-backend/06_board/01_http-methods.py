@@ -64,16 +64,6 @@ def list_memos():
     # JSON 응답으로 보내기 쉽게 list로 바꿔 반환합니다.
     return {"data": list(memos.values())}
 
-@app.get("/memos/{memo_id}")
-def get_memo(memo_id: int):
-    """특정 메모를 조회합니다."""
-
-    # 요청한 id가 저장소에 없으면 404 오류를 직접 발생시킵니다.
-    if memo_id not in memos:
-        raise HTTPException(status_code=404, detail="Memo not found")
-
-    return {"data": memos[memo_id]}
-
 
 # @app.post는 POST 요청을 처리합니다.
 # POST는 새 데이터를 만들 때 사용합니다.
@@ -140,19 +130,3 @@ def delete_memo(memo_id: int):
     # 삭제한 데이터를 응답에 포함하면 무엇이 삭제됐는지 확인하기 쉽습니다.
     deleted = memos.pop(memo_id)
     return {"message": "memo deleted", "data": deleted}
-
-@app.delete("/memos/removeall")
-def delete_all_memos():
-    """기존 메모를 모두 삭제합니다."""
-
-    # 없는 메모를 삭제하려고 하면 404로 알려줍니다.
-    if len(memos) == 0:
-        print(f"memo_id 는 없습니다.")
-        raise HTTPException(status_code=404, detail="메모가 존재하지 않습니다.")
-        return None
-
-    # pop은 dict에서 값을 꺼내면서 동시에 삭제합니다.
-    # 삭제한 데이터를 응답에 포함하면 무엇이 삭제됐는지 확인하기 쉽습니다.
-    memos.clear()
-    return {"message": "memo deleted", "data": memos}
-
