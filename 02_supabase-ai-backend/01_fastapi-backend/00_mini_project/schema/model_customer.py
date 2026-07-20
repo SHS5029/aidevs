@@ -13,4 +13,4 @@ class Customer(BaseModel):
 class CustomerDetail(BaseModel):
     id:str = Field(min_length=3, examples=["id01"])
     name:str = Field(min_length=5, examples=["james"])
-    age:int = Field(ge=1, examples=[20])    
+    age:int = Field(ge=1, examples=[20]) 
