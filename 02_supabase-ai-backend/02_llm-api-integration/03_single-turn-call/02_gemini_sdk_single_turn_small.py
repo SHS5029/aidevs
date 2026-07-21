@@ -38,15 +38,18 @@ client = genai.Client(api_key=api_key)
 
 
 # 싱글턴 호출은 "현재 질문 1개 -> 모델 응답 1개" 흐름입니다.
-prompt = "FastAPI에서 Pydantic을 왜 사용하나요? 초보자에게 짧게 설명해 주세요."
+while True:
+
+    prompt = input("질문을 입력하세요 (종료하려면 Ctrl+C): ")
 
 
-# Gemini 모델에 prompt를 보내고 응답을 받습니다.
-response = client.models.generate_content(
-    model=model,
-    contents=prompt,
-)
+    # Gemini 모델에 prompt를 보내고 응답을 받습니다.
+    response = client.models.generate_content(
+        model=model,
+        contents=prompt,
+    )
 
 
-# SDK는 응답 텍스트를 response.text로 꺼낼 수 있습니다.
-print(response.text)
+    # SDK는 응답 텍스트를 response.text로 꺼낼 수 있습니다.
+    print(response.text)
+    # 종료 조건을 넣지 않으면 무한 루프가 됩니다. 실제 사용 시 적절히 종료 조건을 추가하세요.

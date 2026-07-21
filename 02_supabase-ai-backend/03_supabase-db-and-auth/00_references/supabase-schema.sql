@@ -7,7 +7,7 @@
 -- insert/select/update/delete 흐름을 가장 먼저 연습합니다.
 -- FastAPI나 LLM 흐름으로 넘어가기 전에 Supabase 테이블 조작 방법을 익히기 위한 테이블입니다.
 create table if not exists learning_notes (
-  id uuid primary key default gen_random_uuid(),
+  id text primary key,
   title text not null,
   content text not null,
   created_at timestamptz not null default now()

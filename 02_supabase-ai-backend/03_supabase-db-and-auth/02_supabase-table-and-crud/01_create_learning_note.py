@@ -6,7 +6,26 @@ r"""learning_notes 생성 예제입니다.
     python .\03_supabase-db-and-auth\02_supabase-table-and-crud\01_create_learning_note.py
 """
 
+from datetime import datetime, timedelta, timezone
+
 from supabase_client import get_supabase
+
+
+KST = timezone(timedelta(hours=9))
+
+
+def create_time_id(created_at: datetime | None = None) -> str:
+    """KST 생성 시각을 YYYYMMDDHHMMSSff 형식의 ID로 만듭니다."""
+
+    created_at_kst = (created_at or datetime.now(KST)).astimezone(KST)
+    centiseconds = created_at_kst.microsecond // 10_000
+    return f"{created_at_kst:%Y%m%d%H%M%S}{centiseconds:02d}"
+
+
+def format_created_at_as_kst(created_at: str) -> str:
+    """타임존이 포함된 생성 시각을 KST 날짜와 시간으로 변환합니다."""
+
+    return datetime.fromisoformat(created_at).astimezone(KST).strftime("%Y-%m-%d %H:%M:%S KST")
 
 
 def main() -> None:
@@ -20,8 +39,9 @@ def main() -> None:
         supabase.table("learning_notes")
         .insert(
             {
-                "title": "Supabase create practice",
-                "content": "01_create_learning_note.py에서 생성한 학습 메모입니다.",
+                "id": create_time_id(),
+                "title": "제목",
+                "content": "내용",
             }
         )
         .execute()
@@ -35,7 +55,7 @@ def main() -> None:
     print(f"id: {created.get('id')}")
     print(f"title: {created.get('title')}")
     print(f"content: {created.get('content')}")
-    print(f"created_at: {created.get('created_at')}")
+    print(f"created_at: {format_created_at_as_kst(created['created_at'])}")
 
 
 if __name__ == "__main__":

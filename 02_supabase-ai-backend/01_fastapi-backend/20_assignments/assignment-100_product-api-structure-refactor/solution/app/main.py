@@ -10,6 +10,7 @@ r"""상품 API 구조 분리 과제의 solution 실행 시작점입니다.
 from fastapi import FastAPI
 
 from app.routers.product_router import router as product_router
+from app.services.product_service import ProductService
 
 
 app = FastAPI(title="Product API Structure Assignment Solution")

@@ -34,7 +34,7 @@ SQL Editor
 
 ```sql
 create table if not exists learning_notes (
-  id uuid primary key default gen_random_uuid(),
+  id text primary key,
   title text not null,
   content text not null,
   created_at timestamptz not null default now()
@@ -45,12 +45,19 @@ create table if not exists learning_notes (
 
 | 컬럼 | 타입 | 의미 |
 | --- | --- | --- |
-| `id` | `uuid` | 각 메모를 구분하는 고유 ID입니다. |
+| `id` | `text` | KST 생성 시각으로 만든 16자리 고유 ID입니다. |
 | `title` | `text` | 메모 제목입니다. |
 | `content` | `text` | 메모 내용입니다. |
 | `created_at` | `timestamptz` | 데이터가 생성된 시간입니다. |
 
-`id`는 직접 입력하지 않아도 Supabase/PostgreSQL이 자동으로 만들어 줍니다. `created_at`도 `now()` 기본값 덕분에 자동으로 현재 시간이 들어갑니다.
+`id`는 Python 코드에서 `YYYYMMDDHHMMSSff` 형식으로 만듭니다. 마지막 `ff`는 1/100초이며, 예를 들어 `2026072112280101`은 KST 기준 `2026-07-21 12:28:01.01`을 뜻합니다. `created_at`은 `now()` 기본값 덕분에 자동으로 현재 시간이 들어갑니다.
+
+기존 `learning_notes.id`가 `uuid`라면 SQL Editor에서 한 번만 다음 SQL을 실행해 `text`로 변경합니다.
+
+```sql
+alter table learning_notes
+alter column id type text using id::text;
+```
 
 ## 실행 전 확인
 
