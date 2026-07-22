@@ -167,12 +167,12 @@ def main() -> None:
         assistant_message=assistant_message,
     )
     print("[chat log saved]")
-    pprint(saved_log, width=100)
+    # pprint(saved_log, width=100)
 
-    print("\n[recent chat logs]")
-    pprint(list_recent_chat_logs(supabase), width=100)
+    # print("\n[recent chat logs]")
+    # pprint(list_recent_chat_logs(supabase), width=100)
 
-    print("\nResult: simple_chat_logs 테이블에 채팅 로그 저장 흐름을 확인했습니다.")
+    # print("\nResult: simple_chat_logs 테이블에 채팅 로그 저장 흐름을 확인했습니다.")
 
 
 if __name__ == "__main__":
