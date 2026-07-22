@@ -14,22 +14,22 @@ def main() -> None:
 
     supabase = get_supabase()
 
-    created_result = (
-        supabase.table("learning_notes")
-        .insert(
-            {
-                "title": "Supabase delete practice",
-                "content": "삭제 실습을 위해 잠시 생성한 메모입니다.",
-            }
-        )
-        .execute()
-    )
+    # created_result = (
+    #     supabase.table("learning_notes")
+    #     .insert(
+    #         {
+    #             "title": "Supabase delete practice",
+    #             "content": "삭제 실습을 위해 잠시 생성한 메모입니다.",
+    #         }
+    #     )
+    #     .execute()
+    # )
 
-    if not created_result.data:
-        raise RuntimeError("삭제 실습용 메모를 생성하지 못했습니다.")
+    # if not created_result.data:
+    #     raise RuntimeError("삭제 실습용 메모를 생성하지 못했습니다.")
 
-    created = created_result.data[0]
-    note_id = created["id"]
+    # created = created_result.data[0]
+    note_id = "2026072112465831"
     print(f"[created for delete]\nid: {note_id}")
 
     # delete도 update와 마찬가지로 조건이 중요합니다.

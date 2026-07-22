@@ -14,11 +14,6 @@ from supabase_client import get_supabase
 KST = timezone(timedelta(hours=9))
 
 
-def format_created_at_as_kst(created_at: str) -> str:
-    """타임존이 포함된 생성 시각을 KST 날짜와 시간으로 변환합니다."""
-
-    return datetime.fromisoformat(created_at).astimezone(KST).strftime("%Y-%m-%d %H:%M:%S KST")
-
 
 def main() -> None:
     """학습 메모 전체 목록을 조회합니다."""
@@ -43,10 +38,7 @@ def main() -> None:
         return
 
     for note in result.data:
-        created_at_kst = format_created_at_as_kst(note["created_at"])
-        print(f"{note['id']} | {note['title']} | {note['content']} | {created_at_kst}")
-    # for index, note in enumerate(result.data, start=1):
-    #     print(f"{index}. {note.get('id')} | {note.get('title')} | {note.get('content')}")
+        print(f"{note['id']} | {note['title']} | {note['content']} | {datetime.fromisoformat(note['created_at']).astimezone(KST).strftime('%Y-%m-%d %H:%M:%S KST')}")
 
 
 if __name__ == "__main__":
