@@ -1,19 +1,20 @@
 {
-  "python.terminal.activateEnvironment": true,
+  "python.defaultInterpreterPath": "${workspaceFolder}/01_python-git-foundation/.venv/bin/python",
+  "python.terminal.activateEnvironment": false,
   "terminal.integrated.profiles.osx": {
-    "zsh (venv)": {
+    "zsh (aidevs .venv)": {
       "path": "/bin/zsh",
       "args": [
         "-l",
         "-c",
-        "dir=\"$PWD\"; while [ \"$dir\" != \"/\" ]; do if [ -f \"$dir/.venv/bin/activate\" ]; then . \"$dir/.venv/bin/activate\"; break; fi; dir=\"$(dirname \"$dir\")\"; done; exec zsh -l"
+        "AIDEVS_USER_ZDOTDIR=\"$ZDOTDIR\"; if [ -z \"$AIDEVS_USER_ZDOTDIR\" ]; then AIDEVS_USER_ZDOTDIR=\"$HOME\"; fi; export AIDEVS_USER_ZDOTDIR; AIDEVS_VENV=\"${workspaceFolder}/01_python-git-foundation/.venv\"; export AIDEVS_VENV; ZDOTDIR=\"${workspaceFolder}/.vscode/zsh\"; export ZDOTDIR; exec /bin/zsh -i"
       ]
     }
   },
-  "terminal.integrated.defaultProfile.osx": "zsh (venv)",
+  "terminal.integrated.defaultProfile.osx": "zsh (aidevs .venv)",
   "python-envs.pythonProjects": [
     {
-      "path": "02_supabase-ai-backend",
+      "path": "01_python-git-foundation",
       "envManager": "ms-python.python:venv",
       "packageManager": "ms-python.python:pip"
     }

@@ -1,4 +1,4 @@
-﻿# 01_streamlit-project-setup
+﻿~# 01_streamlit-project-setup
 
 Streamlit 앱의 가장 기본적인 실행 방법과 화면 출력 방법을 익히는 챕터입니다.
 

@@ -1,0 +1,15 @@
+[light]
+background = "#ffffff"
+secondary = "#f3f4f6"
+text = "#111827"
+muted = "#4b5563"
+border = "#d1d5db"
+primary = "#4f46e5"
+
+[dark]
+background = "#0e1117"
+secondary = "#1f2937"
+text = "#f9fafb"
+muted = "#d1d5db"
+border = "#374151"
+primary = "#818cf8"
