@@ -37,13 +37,20 @@ with st.form("profile_form"):  # 파일, 화면 영역, 로딩 상태처럼 시�
     with reset_col:
         reset = st.form_submit_button("초기화", on_click=reset_profile_form)  # 입력값을 기본값으로 되돌리는 버튼입니다.
 
-if reset:  # 초기화 버튼을 눌렀을 때 실행합니다.
-    st.info("입력값을 초기화했습니다.")  # 사용자에게 초기화가 완료되었음을 알려줍니다.
-elif submitted:  # 조건식이 True일 때만 아래 들여쓰기 블록을 실행합니다.
-    if name:  # 조건식이 True일 때만 아래 들여쓰기 블록을 실행합니다.
-        st.success(f"{name}님의 관심 분야는 {role}입니다.")  # 작업이 성공했음을 초록색 성공 메시지로 표시합니다.
+    if reset:  # 초기화 버튼을 눌렀을 때 실행합니다.
+        st.info("입력값을 초기화했습니다.")  # 사용자에게 초기화가 완료되었음을 알려줍니다.
+    elif submitted:  # 조건식이 True일 때만 아래 들여쓰기 블록을 실행합니다.
+        if name:  # 조건식이 True일 때만 아래 들여쓰기 블록을 실행합니다.
+            st.success(f"{name}님의 관심 분야는 {role}입니다.")  # 작업이 성공했음을 초록색 성공 메시지로 표시합니다.
+        else:  # 위 조건들이 모두 False일 때 실행할 대체 흐름입니다.
+            st.error("이름을 입력하세요.")  # 오류 상황을 사용자에게 명확히 보여줍니다.
     else:  # 위 조건들이 모두 False일 때 실행할 대체 흐름입니다.
-        st.error("이름을 입력하세요.")  # 오류 상황을 사용자에게 명확히 보여줍니다.
-else:  # 위 조건들이 모두 False일 때 실행할 대체 흐름입니다.
-    st.info("값을 입력한 뒤 제출 버튼을 누르세요.")  # 다음 행동을 안내하는 정보 메시지를 표시합니다.
+        st.info("값을 입력한 뒤 제출 버튼을 누르세요.")  # 다음 행동을 안내하는 정보 메시지를 표시합니다.
 
+
+    if submitted or reset:  # 제출 또는 초기화 버튼을 눌렀을 때 실행합니다.
+        st.write("현재 입력값:", st.session_state)  # 현재 입력값을 화면에 표시합니다.
+        if name:
+            st.write(f"이름: {st.session_state['profile_name']}")
+        else:
+            st.write("이름: (입력 없음)")

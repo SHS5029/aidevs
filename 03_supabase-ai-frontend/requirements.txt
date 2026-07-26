@@ -146,4 +146,6 @@ google-genai==1.2.0
 pytest==8.4.2
 
 
-pyarrow==18.1.0
+pyarrow
+streamlit-local-storage
+streamlit-browser-session-storage
