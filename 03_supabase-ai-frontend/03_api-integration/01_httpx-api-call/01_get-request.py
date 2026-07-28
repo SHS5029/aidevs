@@ -1,8 +1,20 @@
 import httpx  # FastAPI 같은 백엔드 API에 HTTP 요청을 보내기 위해 httpx 클라이언트를 가져옵니다.
+import streamlit as st  # Python 코드로 웹 화면을 만들기 위해 Streamlit을 st라는 별칭으로 가져옵니다.
 
-API_URL = "http://127.0.0.1:8000/health"  # 호출할 백엔드 health check API 주소입니다.
+API_URL = "http://192.100.200.72:8000/health"  # 호출할 백엔드 health check API 주소입니다.
 
-response = httpx.get(API_URL, timeout=5.0)  # GET 요청을 보내고 응답 객체를 response 변수에 저장합니다.
+st.title("백엔드 Health Check")
 
-print("status code:", response.status_code)  # HTTP 요청이 성공했는지 확인할 수 있는 상태 코드를 출력합니다.
-print("json:", response.json())  # 백엔드가 반환한 JSON 응답을 딕셔너리 형태로 출력합니다.
+if st.button("서버 상태 확인", key="health_check_button"):
+    try:
+        response = httpx.get(API_URL, timeout=5.0)  # GET 요청을 보내고 응답 객체를 response 변수에 저장합니다.
+        result = response.json()
+
+        if response.status_code == 200 and result.get("status") == "ok":
+            st.success("백엔드 서버가 정상 실행 중입니다.")
+        else:
+            st.error("백엔드 서버 상태가 정상이 아닙니다.")
+
+        st.json(result)
+    except (httpx.HTTPError, ValueError) as error:
+        st.error(f"백엔드 서버에 연결할 수 없습니다: {error}")

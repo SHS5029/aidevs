@@ -10,4 +10,3 @@ courses_response = httpx.get(courses_url, timeout=5.0)  # 지정한 URL로 GET �
 
 print("health:", health_response.json())  # 터미널에 값을 출력해 코드 실행 결과를 확인합니다.
 print("courses:", courses_response.json())  # 터미널에 값을 출력해 코드 실행 결과를 확인합니다.
-
