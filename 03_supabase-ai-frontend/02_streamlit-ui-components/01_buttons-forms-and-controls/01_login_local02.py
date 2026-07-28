@@ -1,11 +1,11 @@
 import streamlit as st
-from streamlit_session_browser_storage import SessionStorage
+from streamlit_local_storage import LocalStorage
 
 
-storage = SessionStorage(key="login_session_storage")
+storage = LocalStorage(key="login_storage")
 stored_loginout = storage.getItem("loginout") or "logout"
 
-# 새 Streamlit 세션에서는 브라우저 sessionStorage의 상태를 가져옵니다.
+# 새 브라우저 세션에서는 localStorage의 상태를 가져옵니다.
 if "loginout" not in st.session_state:
     st.session_state.loginout = stored_loginout
 

@@ -15,8 +15,28 @@ average_score = df["score"].mean()  # 계산 결과나 입력값을 이후 코�
 max_score = df["score"].max()  # 계산 결과나 입력값을 이후 코드에서 다시 쓰기 위해 변수에 저장합니다.
 total_time = df["study_time"].sum()  # 계산 결과나 입력값을 이후 코드에서 다시 쓰기 위해 변수에 저장합니다.
 
+mean_atra, max_area, total_area = st.columns(3)  # 세 개의 지표를 나란히 배치하기 위해 화면을 세 칸으로 나눕니다.
+
 st.dataframe(df)  # 표 형태의 데이터를 스크롤 가능한 DataFrame UI로 표시합니다.
 st.metric("평균 점수", f"{average_score:.1f}")  # 핵심 숫자나 상태값을 대시보드 지표 형태로 표시합니다.
 st.metric("최고 점수", int(max_score))  # 핵심 숫자나 상태값을 대시보드 지표 형태로 표시합니다.
 st.metric("총 학습 시간", f"{total_time:.1f}시간")  # 핵심 숫자나 상태값을 대시보드 지표 형태로 표시합니다.
+
+
+##가로버전
+
+with st.container():  # 화면을 구분하기 위해 컨테이너 영역을 만듭니다.
+    st.subheader("가로 배치")  # 컨테이너 영역 안에 소제목을 표시합니다.
+    st.dataframe(df)  # 표 형태의 데이터를 스크롤 가능한 DataFrame UI로 표시합니다.
+
+    mean_area, max_area, total_area = st.columns(3)  # 세 개의 지표를 나란히 배치하기 위해 화면을 세 칸으로 나눕니다.
+
+    with mean_area:  # 첫 번째 칸에 평균 점수 지표를 표시합니다.
+        st.metric("평균 점수", f"{average_score:.1f}")
+
+    with max_area:  # 두 번째 칸에 최고 점수 지표를 표시합니다.
+        st.metric("최고 점수", int(max_score))
+
+    with total_area:  # 세 번째 칸에 총 학습 시간 지표를 표시합니다.
+        st.metric("총 학습 시간", f"{total_time:.1f}시간")
 

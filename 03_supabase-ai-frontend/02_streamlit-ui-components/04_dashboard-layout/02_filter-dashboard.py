@@ -23,3 +23,15 @@ if selected_course != "전체":  # 조건식이 True일 때만 아래 들여쓰�
 st.metric("필터 결과 수", len(filtered_df))  # 핵심 숫자나 상태값을 대시보드 지표 형태로 표시합니다.
 st.dataframe(filtered_df)  # 표 형태의 데이터를 스크롤 가능한 DataFrame UI로 표시합니다.
 
+#합, 평균
+
+sum_score = filtered_df["score"].sum()  # 계산 결과나 입력값을 이후 코드에서 다시 쓰기 위해 변수에 저장합니다.
+average_score = filtered_df["score"].mean()  # 계산 결과나 입력값을 이후 코드에서 다시 쓰기 위해 변수에 저장합니다.
+
+col_sum, col_avg = st.columns(2)  # 두 개의 지표를 나란히 배치하기 위해 화면을 두 칸으로 나눕니다.
+with col_sum:  # 첫 번째 칸에 점수 합계 지표를 표시합니다.
+    st.metric("점수 합계", sum_score)  # 핵심 숫자나 상태값을 대시보드 지표 형태로 표시합니다.
+with col_avg:  # 두 번째 칸에 점수 평균 지표를 표시합니다.
+    st.metric("점수 평균", f"{average_score:.1f}")  # 핵심 숫자나 상태값을 대시보드 지표 형태로 표시합니다.
+
+

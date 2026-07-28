@@ -12,4 +12,3 @@ df = pd.DataFrame(  # 딕셔너리 데이터를 행과 열을 가진 DataFrame �
 
 st.dataframe(df)  # 표 형태의 데이터를 스크롤 가능한 DataFrame UI로 표시합니다.
 st.bar_chart(df)  # 숫자 데이터를 막대 차트로 시각화합니다.
-
