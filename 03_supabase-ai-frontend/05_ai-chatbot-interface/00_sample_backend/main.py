@@ -143,6 +143,41 @@ def build_prompt_with_history(request: ChatRequest):
         f"현재 질문: {request.question}"
     )
 
+DEFAULT_ROLE_PROMPT = (
+    "너는 '귀찮은 대출상담원' 역할을 맡는다.\n"
+    "사용자의 대출 신청을 가상으로 사전 심사하고, 승인 가능성, 부족한 정보, 보완해야 할 점을 안내한다.\n"
+    "말투는 존댓말을 기본으로 하되 건방지고 퉁명스러우며, 상담을 귀찮아하는 느낌을 유지한다.\n"
+    "다만 욕설, 인신공격, 차별, 협박, 모욕적인 표현은 사용하지 않는다.\n"
+    "난이도는 다소 높게 유지한다. 처음부터 쉽게 승인하지 말고 소득, 재직 기간, 기존 부채, 신용 상태, 대출 목적, 상환 계획 등 핵심 정보를 꼼꼼히 확인한다.\n"
+    "정보가 부족하거나 서로 맞지 않으면 바로 승인하지 말고, 한 번에 한두 가지 핵심 질문을 추가로 하며 사용자가 충분히 설명하도록 한다.\n"
+    "사용자가 예의 바르고 협조적으로 답하며 상담원에게 적절히 비위를 맞출수록 심사 협조도를 높게 평가하고 대출 승인 가능성을 높게 본다.\n"
+    "사용자가 불성실하게 답하거나 핵심 정보를 누락하면 심사 협조도를 낮게 평가하고 말투를 더 퉁명스럽게 한다.\n"
+)
+
+
+def build_prompt_with_history_and_role_prompt(request: ChatRequest):
+    """이전 대화와 현재 질문, 사전 역할 프롬프트를 Gemini에 보낼 하나의 프롬프트로 합칩니다."""
+
+    # 08 예제에서는 최근 6개 메시지만 백엔드로 보냅니다.
+    # 백엔드는 전달받은 메시지를 그대로 이어 붙여 Gemini가 앞 대화를 참고할 수 있게 합니다.
+    # 실제 서비스에서는 더 많은 메시지를 함께 보내거나, 오래된 대화는 요약해서 보내거나,
+    # DB/Vector DB에서 필요한 기억만 검색해 함께 보내는 방식으로 확장할 수 있습니다.
+    history_lines = []
+
+    for message in request.messages:
+        history_lines.append(f"{message.role}: {message.content}")
+
+    history_text = "\n".join(history_lines) or "(이전 대화 없음)"
+
+    return (
+        "##기본 지시사항##\n"
+        f"{DEFAULT_ROLE_PROMPT}\n\n"
+        "아래는 지금까지의 대화입니다.\n"
+        f"{history_text}\n\n"
+        "위 대화의 문맥을 참고해서 현재 질문에 답하세요.\n"
+        f"현재 질문: {request.question}"
+    )
+
 
 @app.get("/")
 def read_root():
@@ -170,6 +205,12 @@ def create_mock_chat(request: ChatRequest):
     print_api_running("POST", "/api/chat/mock")
     print_client_request("/api/chat/mock", request)
 
+    if request.question == "오류":
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="mock chat API에서 404 오류를 발생시켰습니다.",
+        )
+
     return ChatResponse(
         answer=f"'{request.question}'에 대한 mock 응답입니다. 함께 받은 이전 메시지 수: {len(request.messages)}개",
         provider="mock",
@@ -193,7 +234,7 @@ def create_gemini_chat(request: ChatRequest):
         client = genai.Client(api_key=api_key)
         response = client.models.generate_content(
             model=GEMINI_MODEL,
-            contents=build_prompt_with_history(request),
+            contents=build_prompt_with_history_and_role_prompt(request),
         )
     except Exception as exc:
         raise HTTPException(
@@ -209,3 +250,9 @@ def create_gemini_chat(request: ChatRequest):
         model=GEMINI_MODEL,
         actual_api_called=True,
     )
+
+
+
+
+#######main붙여넣기
+

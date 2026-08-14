@@ -1,6 +1,6 @@
 import httpx  # FastAPI 같은 백엔드 API에 HTTP 요청을 보내기 위해 httpx 클라이언트를 가져옵니다.
 import streamlit as st  # Python 코드로 웹 화면을 만들기 위해 Streamlit을 st라는 별칭으로 가져옵니다.
-
+from datetime import datetime  # 현재 시간을 계산하기 위해 datetime 모듈을 가져옵니다.
 API_BASE_URL = "http://127.0.0.1:8000"  # 프론트엔드가 호출할 백엔드 서버의 기본 주소를 한 곳에서 관리합니다.
 
 
@@ -15,10 +15,20 @@ def call_chat_api(message):
 st.title("백엔드 mock 챗 API 클라이언트")  # Streamlit 화면의 가장 큰 제목을 표시합니다.
 st.caption("05_ai-chatbot-interface/00_sample_backend의 /api/chat/mock 엔드포인트를 호출합니다.")  # 호출 대상을 화면에 안내합니다.
 
-prompt = st.chat_input("질문을 입력하세요")  # 채팅 입력창에서 사용자가 보낸 질문 문자열을 변수에 저장합니다.
+prompt = st.chat_input("채팅을 입력하세요")  # 채팅 입력창에서 사용자가 보낸 질문 문자열을 변수에 저장합니다.
+
+if "messages" not in st.session_state:  # session_state에 값이 없을 때만 초기값을 만들어 화면 재실행에도 상태를 유지합니다.
+    st.session_state.messages = []  # Streamlit이 재실행되어도 유지해야 하는 화면 상태를 session_state에 저장하거나 읽습니다.
+
+
 
 if prompt:  # 사용자가 채팅 입력창에 질문을 입력했을 때만 메시지 처리 로직을 실행합니다.
-    st.chat_message("user").write(prompt)  # 사용자 질문을 user 말풍선에 출력합니다.
-    with st.spinner("mock 백엔드 응답을 기다리는 중입니다..."):  # API 응답을 기다리는 동안 로딩 메시지를 보여줍니다.
-        reply = call_chat_api(prompt)  # 백엔드 mock API가 만든 응답 문자열을 화면 출력용 변수에 저장합니다.
-    st.chat_message("assistant").write(reply)  # assistant 답변을 assistant 말풍선에 출력합니다.
+    call_chat_api(prompt)  # 사용자가 입력한 질문을 mock chat API에 보내고, 응답을 받습니다.
+    created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")  # 계산 결과나 입력값을 이후 코드에서 다시 쓰기 위해 변수에 저장합니다.
+    st.session_state.messages.append({"role": "user", "content": prompt, "created_at": created_at})  # Streamlit이 재실행되어도 유지해야 하는 화면 상태를 session_state에 저장하거나 읽습니다.
+    st.session_state.messages.append({"role": "assistant", "content": "메타데이터가 저장되었습니다.", "created_at": created_at})  # Streamlit이 재실행되어도 유지해야 하는 화면 상태를 session_state에 저장하거나 읽습니다.
+
+for message in st.session_state.messages:  # Streamlit이 재실행되어도 유지해야 하는 화면 상태를 session_state에 저장하거나 읽습니다.
+    with st.chat_message(message["role"]):  # 파일, 화면 영역, 로딩 상태처럼 시작과 종료가 있는 작업 범위를 만듭니다.
+        st.write(message["content"])  # 문자열, 숫자, 객체를 Streamlit 화면에 출력합니다.
+        st.caption(message["created_at"])  # 보조 설명이나 현재 설정값을 작은 글씨로 표시합니다.

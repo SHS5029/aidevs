@@ -35,7 +35,7 @@ CHAT_ENDPOINT = "/api/chat/gemini"
 # 나중에는 서비스 정책에 따라 더 많은 메시지를 보내거나,
 # 오래된 대화를 요약해서 보내거나,
 # DB/Vector DB에서 필요한 기억만 검색해 함께 보내는 방식으로 확장할 수 있습니다.
-HISTORY_LIMIT = 6
+HISTORY_LIMIT = 10
 
 
 def reset_messages():
