@@ -1,0 +1,4 @@
+# Dependencies used by the MCP examples in this directory.
+mcp>=1.27,<2
+openai
+python-dotenv

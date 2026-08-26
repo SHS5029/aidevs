@@ -1,0 +1,25 @@
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+  "python-envs.pythonProjects": [
+    {
+      "path": "${workspaceFolder}",
+      "envManager": "ms-python.python:venv",
+      "packageManager": "ms-python.python:pip"
+    }
+  ],
+  "python-envs.workspaceSearchPaths": [".venv"],
+  "python.terminal.activateEnvironment": true,
+  "python-envs.terminal.autoActivationType": "shellStartup",
+  "terminal.integrated.shellIntegration.enabled": true,
+  "terminal.integrated.profiles.osx": {
+    "zsh (03_mcp venv)": {
+      "path": "/bin/zsh",
+      "args": ["-i"],
+      "env": {
+        "ZDOTDIR": "${workspaceFolder}/.vscode",
+        "PROJECT_ROOT": "${workspaceFolder}"
+      }
+    }
+  },
+  "terminal.integrated.defaultProfile.osx": "zsh (03_mcp venv)"
+}
