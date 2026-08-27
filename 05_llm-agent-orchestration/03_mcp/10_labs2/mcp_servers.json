@@ -1,0 +1,5 @@
+{
+  "booking": {
+    "args": ["03_booking_mcp_server.py"]
+  }
+}
