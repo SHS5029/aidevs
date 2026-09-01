@@ -130,3 +130,13 @@ SETUP.md        설치, 환경 변수, 실행 방법
 90_*            AI 보조 리뷰와 디버깅
 99_*            최종 또는 통합 프로젝트
 ```
+
+
+SELECT
+    content,
+    title,
+    source,
+    content,
+    LEFT(embedding::text, 100) AS vector_preview
+FROM documents
+WHERE collection_name = 'rag_lesson';
