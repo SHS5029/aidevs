@@ -1,6 +1,6 @@
 {
-  "python.defaultInterpreterPath": "${workspaceFolder}/01_python-git-foundation/.venv/bin/python",
-  "python.terminal.activateEnvironment": false,
+  "python.defaultInterpreterPath": "${workspaceFolder}/05_llm-agent-orchestration/.venv/bin/python",
+  "python.terminal.activateEnvironment": true,
   "terminal.integrated.profiles.osx": {
     "zsh (aidevs .venv)": {
       "path": "/bin/zsh",
