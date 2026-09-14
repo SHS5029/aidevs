@@ -101,7 +101,7 @@ GEMINI_MODEL=gemini-3.5-flash
 안에서 `127.0.0.1`로 바꾸면 자기 자신을 가리키므로 연결되지 않습니다.
 
 ```ini
-DATABASE_URL=postgresql://agent_user:agent_pwd@database:5432/agent_db
+DATABASE_URL=postgresql://postgres:postgres@database:5432/agent_db
 REDIS_URL=redis://redis:6379/0
 WEATHER_MCP_URL=http://weather-mcp:8010/mcp
 WEATHER_CACHE_TTL_SECONDS=600
@@ -183,7 +183,7 @@ Liveness가 성공해도 Readiness는 MCP·PostgreSQL·Schema·Redis 중 하나�
 PostgreSQL 실행 이력을 직접 조회합니다.
 
 ```powershell
-docker compose -f .\compose.infrastructure.yml exec database psql -U agent_user -d agent_db -c "SELECT run_id, city, day, provider, model, created_at FROM weather_agent.runs ORDER BY created_at DESC LIMIT 10;"
+docker compose -f .\compose.infrastructure.yml exec database psql -U postgres -d agent_db -c "SELECT run_id, city, day, provider, model, created_at FROM weather_agent.runs ORDER BY created_at DESC LIMIT 10;"
 ```
 
 Redis가 가진 날씨 관련 Key도 확인할 수 있습니다.
@@ -199,7 +199,7 @@ docker compose -f .\compose.infrastructure.yml exec redis redis-cli --scan --pat
 기존 Volume이 `init.sql` 추가 전에 만들어졌다면 다음 명령으로 SQL을 적용합니다.
 
 ```powershell
-Get-Content .\database\init.sql | docker compose -f .\compose.infrastructure.yml exec -T database psql -U agent_user -d agent_db
+Get-Content .\database\init.sql | docker compose -f .\compose.infrastructure.yml exec -T database psql -U postgres -d agent_db
 docker compose -f .\compose.application.yml up -d --build --force-recreate backend frontend
 ```
 
@@ -630,8 +630,8 @@ OPENAI_API_KEY=<실제 OpenAI API Key>
 OPENAI_MODEL=gpt-4.1-mini
 GEMINI_API_KEY=<실제 Gemini API Key>
 GEMINI_MODEL=gemini-3.5-flash
-POSTGRES_USER=agent_user
-POSTGRES_PASSWORD=agent_pwd
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
 POSTGRES_DB=agent_db
 WEATHER_CACHE_TTL_SECONDS=600
 ```
@@ -639,7 +639,7 @@ WEATHER_CACHE_TTL_SECONDS=600
 Application 내부 연결은 Compose가 다음 값으로 구성합니다.
 
 ```ini
-DATABASE_URL=postgresql://agent_user:agent_pwd@database:5432/agent_db
+DATABASE_URL=postgresql://postgres:postgres@database:5432/agent_db
 REDIS_URL=redis://redis:6379/0
 WEATHER_MCP_URL=http://weather-mcp:8010/mcp
 ```
@@ -772,9 +772,9 @@ curl --fail --retry 18 --retry-delay 5 http://127.0.0.1:8000/health/ready
 cd ~/weather-stateful
 docker compose -f compose.infrastructure.yml ps
 docker compose -f compose.infrastructure.yml logs --tail=100 database redis
-docker compose -f compose.infrastructure.yml exec database pg_isready -U agent_user -d agent_db
+docker compose -f compose.infrastructure.yml exec database pg_isready -U postgres -d agent_db
 docker compose -f compose.infrastructure.yml exec redis redis-cli PING
-docker compose -f compose.infrastructure.yml exec database psql -U agent_user -d agent_db -c "SELECT to_regclass('weather_agent.runs');"
+docker compose -f compose.infrastructure.yml exec database psql -U postgres -d agent_db -c "SELECT to_regclass('weather_agent.runs');"
 docker compose -f compose.application.yml ps
 curl --fail http://127.0.0.1:8000/health/ready
 ```
@@ -794,7 +794,7 @@ curl --fail http://127.0.0.1:8000/health/ready
 PostgreSQL의 기존 실행 이력을 조회합니다.
 
 ```bash
-docker compose -f compose.infrastructure.yml exec database psql -U agent_user -d agent_db -c "SELECT run_id, city, provider, created_at FROM weather_agent.runs ORDER BY created_at DESC LIMIT 10;"
+docker compose -f compose.infrastructure.yml exec database psql -U postgres -d agent_db -c "SELECT run_id, city, provider, created_at FROM weather_agent.runs ORDER BY created_at DESC LIMIT 10;"
 ```
 
 배포 전 실행 이력이 남아 있고, 배포 후 새 요청도 추가되면 상태 보존 배포가 성공한 것입니다.

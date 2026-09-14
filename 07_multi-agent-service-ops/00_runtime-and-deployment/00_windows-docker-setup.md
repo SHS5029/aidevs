@@ -130,8 +130,8 @@ docker run -d `
   --name aidevs-pgvector `
   -p 5433:5432 `
   -e POSTGRES_DB=agent_db `
-  -e POSTGRES_USER=agent_user `
-  -e POSTGRES_PASSWORD=agent_pwd `
+  -e POSTGRES_USER=postgres `
+  -e POSTGRES_PASSWORD=postgres `
   -v aidevs-pgvector-data:/var/lib/postgresql/data `
   pgvector/pgvector:pg16
 ```
@@ -139,16 +139,16 @@ docker run -d `
 준비 상태와 pgvector Extension을 확인합니다.
 
 ```powershell
-docker exec aidevs-pgvector pg_isready -U agent_user -d agent_db
-docker exec -it aidevs-pgvector psql -U agent_user -d agent_db -c "CREATE EXTENSION IF NOT EXISTS vector;"
-docker exec -it aidevs-pgvector psql -U agent_user -d agent_db -c "SELECT extname FROM pg_extension WHERE extname = 'vector';"
+docker exec aidevs-pgvector pg_isready -U postgres -d agent_db
+docker exec -it aidevs-pgvector psql -U postgres -d agent_db -c "CREATE EXTENSION IF NOT EXISTS vector;"
+docker exec -it aidevs-pgvector psql -U postgres -d agent_db -c "SELECT extname FROM pg_extension WHERE extname = 'vector';"
 ```
 
 첫 명령에 `accepting connections`, 마지막 결과에 `vector`가 표시되면 정상입니다. Host
 Python에서 연결할 때 사용하는 기본 주소는 다음과 같습니다.
 
 ```ini
-DATABASE_URL=postgresql://agent_user:agent_pwd@127.0.0.1:5433/agent_db
+DATABASE_URL=postgresql://postgres:postgres@127.0.0.1:5433/agent_db
 ```
 
 ### 6-3. Redis 설치
@@ -250,7 +250,7 @@ docker stats aidevs-ollama
 
 ```powershell
 docker start aidevs-pgvector aidevs-redis aidevs-ollama
-docker exec aidevs-pgvector pg_isready -U agent_user -d agent_db
+docker exec aidevs-pgvector pg_isready -U postgres -d agent_db
 docker exec aidevs-redis redis-cli PING
 docker exec aidevs-ollama ollama list
 ```
@@ -266,7 +266,7 @@ cd C:\aidevs\07_multi-agent-service-ops\00_runtime-and-deployment\00_local-servi
 .\start-local-services.ps1
 ```
 
-Script의 PostgreSQL 교육용 비밀번호와 기본 `DATABASE_URL`은 `agent_pwd`로 통일되어 있습니다.
+Script의 PostgreSQL 교육용 비밀번호와 기본 `DATABASE_URL`은 `postgres`로 통일되어 있습니다.
 단, 다른 비밀번호로 생성된 기존 `aidevs-pgvector-data` Volume을 재사용하면 최초 생성 시의
 비밀번호가 그대로 유지됩니다. 환경 변수 변경만으로 기존 Database 비밀번호가 바뀌지는
 않습니다.
@@ -285,7 +285,7 @@ cd C:\aidevs\07_multi-agent-service-ops\00_runtime-and-deployment\00_local-servi
 
 ```powershell
 docker ps --filter "name=aidevs-" --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
-docker exec aidevs-pgvector pg_isready -U agent_user -d agent_db
+docker exec aidevs-pgvector pg_isready -U postgres -d agent_db
 docker exec aidevs-redis redis-cli PING
 docker exec aidevs-ollama ollama list
 ```

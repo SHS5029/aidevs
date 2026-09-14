@@ -13,7 +13,7 @@ services:
     build: ./backend
     environment:
       WEATHER_MCP_URL: http://weather-mcp:8010/mcp
-      DATABASE_URL: postgresql://${POSTGRES_USER:-agent_user}:${POSTGRES_PASSWORD:-agent_pwd}@database:5432/${POSTGRES_DB:-agent_db}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@database:5432/${POSTGRES_DB:-agent_db}
       REDIS_URL: redis://redis:6379/0
       WEATHER_CACHE_TTL_SECONDS: ${WEATHER_CACHE_TTL_SECONDS:-600}
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}

@@ -60,7 +60,7 @@ docker compose logs --tail=100 postgres
 
 ```powershell
 docker compose exec redis redis-cli ping
-docker compose exec postgres pg_isready -U agent_user -d agent_db
+docker compose exec postgres pg_isready -U postgres -d agent_db
 ```
 
 Redis는 `PONG`, PostgreSQL은 `accepting connections`를 반환해야 합니다.
@@ -83,7 +83,7 @@ python .\init_database.py
 프로그램은 `.env`의 다음 값을 읽습니다.
 
 ```ini
-DATABASE_URL=postgresql://agent_user:agent_pwd@127.0.0.1:5433/agent_db
+DATABASE_URL=postgresql://postgres:postgres@127.0.0.1:5433/agent_db
 ```
 
 `init_database.py`는 같은 폴더의 `init.sql`을 실행하여 `vector` Extension과 과정 공통

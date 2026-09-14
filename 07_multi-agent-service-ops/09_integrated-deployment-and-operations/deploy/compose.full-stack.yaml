@@ -4,8 +4,8 @@ services:
   postgres:
     image: pgvector/pgvector:pg16
     environment:
-      POSTGRES_USER: agent_user
-      POSTGRES_PASSWORD: agent_pwd
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
       POSTGRES_DB: agent_db
     ports:
       - "5433:5432"
@@ -13,7 +13,7 @@ services:
       - postgres-data:/var/lib/postgresql/data
       - ../../08_multi-ai-agent-service/schema.sql:/docker-entrypoint-initdb.d/001_schema.sql:ro
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U agent_user -d agent_db"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d agent_db"]
       interval: 5s
       timeout: 5s
       retries: 10

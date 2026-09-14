@@ -22,8 +22,8 @@ Start-IfMissing "aidevs-pgvector" {
         --name aidevs-pgvector `
         -p 5433:5432 `
         -e POSTGRES_DB=agent_db `
-        -e POSTGRES_USER=agent_user `
-        -e POSTGRES_PASSWORD=agent_pwd `
+        -e POSTGRES_USER=postgres `
+        -e POSTGRES_PASSWORD=postgres `
         -v aidevs-pgvector-data:/var/lib/postgresql/data `
         pgvector/pgvector:pg16 | Out-Null
 }
@@ -48,7 +48,7 @@ Start-IfMissing "aidevs-ollama" {
 Write-Output "Waiting for PostgreSQL..."
 $postgresReady = $false
 for ($attempt = 1; $attempt -le 15; $attempt++) {
-    docker exec aidevs-pgvector pg_isready -U agent_user -d agent_db 2>$null | Out-Null
+    docker exec aidevs-pgvector pg_isready -U postgres -d agent_db 2>$null | Out-Null
     if ($LASTEXITCODE -eq 0) {
         $postgresReady = $true
         break
@@ -59,7 +59,7 @@ if (-not $postgresReady) {
     throw "PostgreSQL did not become ready. Run: docker logs aidevs-pgvector"
 }
 
-docker exec aidevs-pgvector psql -U agent_user -d agent_db -c "CREATE EXTENSION IF NOT EXISTS vector;"
+docker exec aidevs-pgvector psql -U postgres -d agent_db -c "CREATE EXTENSION IF NOT EXISTS vector;"
 docker exec aidevs-redis redis-cli PING
 
 Write-Output "Waiting for Ollama..."

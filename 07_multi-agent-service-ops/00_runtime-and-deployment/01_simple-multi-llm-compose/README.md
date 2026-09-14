@@ -38,7 +38,7 @@ Backend도 Container이므로 Host의 공용 서비스에는 `127.0.0.1`이 아�
 `host.docker.internal`로 접근합니다.
 
 ```ini
-DATABASE_URL=postgresql://agent_user:agent_pwd@host.docker.internal:5433/agent_db
+DATABASE_URL=postgresql://postgres:postgres@host.docker.internal:5433/agent_db
 REDIS_URL=redis://host.docker.internal:6379/0
 OLLAMA_BASE_URL=http://host.docker.internal:11434
 ```
@@ -87,7 +87,7 @@ docker compose -f .\compose.full-stack.yml config --quiet
 docker compose -f .\compose.full-stack.yml up --build -d
 docker compose -f .\compose.full-stack.yml ps
 docker compose -f .\compose.full-stack.yml exec redis redis-cli ping
-docker compose -f .\compose.full-stack.yml exec database pg_isready -U agent_user -d agent_db
+docker compose -f .\compose.full-stack.yml exec database pg_isready -U postgres -d agent_db
 ```
 
 Full Stack 내부에서는 Compose Service 이름을 사용합니다.

@@ -21,7 +21,7 @@ from psycopg.rows import dict_row
 from pydantic import BaseModel, Field
 
 MCP_URL = os.getenv("WEATHER_MCP_URL", "http://127.0.0.1:8010/mcp")
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://agent_user:agent_pwd@127.0.0.1:5433/agent_db")
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:postgres@127.0.0.1:5433/agent_db")
 REDIS_URL = os.getenv("REDIS_URL", "redis://127.0.0.1:6379/0")
 CACHE_TTL = int(os.getenv("WEATHER_CACHE_TTL_SECONDS", "600"))
 app = FastAPI(title="Stateful Weather MCP Agent", version="1.0.0")

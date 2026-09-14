@@ -8,7 +8,7 @@ services:
     image: ${BACKEND_IMAGE:?BACKEND_IMAGE을 .env에 설정하세요}
     environment:
       REDIS_URL: ${REDIS_URL:-redis://host.docker.internal:6379/0}
-      DATABASE_URL: ${DATABASE_URL:-postgresql://agent_user:agent_pwd@host.docker.internal:5433/agent_db}
+      DATABASE_URL: ${DATABASE_URL:-postgresql://postgres:postgres@host.docker.internal:5433/agent_db}
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       OPENAI_MODEL: ${OPENAI_MODEL:-gpt-4.1-mini}
       GEMINI_API_KEY: ${GEMINI_API_KEY:-}

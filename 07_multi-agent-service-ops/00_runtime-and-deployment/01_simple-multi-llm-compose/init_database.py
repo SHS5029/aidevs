@@ -21,7 +21,7 @@ ROOT = Path(__file__).resolve().parent
 ENV_PATH = ROOT / ".env"
 SQL_PATH = ROOT / "database" / "init.sql"
 DEFAULT_HOST_DATABASE_URL = (
-    "postgresql://agent_user:agent_pwd@127.0.0.1:5433/agent_db"
+    "postgresql://postgres:postgres@127.0.0.1:5433/agent_db"
 )
 
 

@@ -235,7 +235,7 @@ Redis, MCP 공통 환경을 사용합니다.
 cd C:\aidevs\07_multi-agent-service-ops
 .\.venv\Scripts\Activate.ps1
 docker start aidevs-pgvector aidevs-redis aidevs-ollama
-docker exec aidevs-pgvector pg_isready -U agent_user -d agent_db
+docker exec aidevs-pgvector pg_isready -U postgres -d agent_db
 docker exec aidevs-redis redis-cli PING
 docker exec aidevs-ollama ollama list
 ```

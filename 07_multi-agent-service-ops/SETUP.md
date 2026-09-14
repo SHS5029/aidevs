@@ -182,7 +182,7 @@ Invoke-RestMethod `
 docker ps -a --filter "name=^/aidevs-pgvector$"
 docker ps -a --filter "name=^/aidevs-redis$"
 docker start aidevs-pgvector aidevs-redis
-docker exec aidevs-pgvector pg_isready -U agent_user -d agent_db
+docker exec aidevs-pgvector pg_isready -U postgres -d agent_db
 docker exec aidevs-redis redis-cli PING
 ```
 
@@ -190,15 +190,15 @@ docker exec aidevs-redis redis-cli PING
 확인합니다.
 
 ```powershell
-docker exec -it aidevs-pgvector psql -U agent_user -d agent_db -c "CREATE EXTENSION IF NOT EXISTS vector;"
-docker exec -it aidevs-pgvector psql -U agent_user -d agent_db -c "SELECT extname FROM pg_extension WHERE extname = 'vector';"
+docker exec -it aidevs-pgvector psql -U postgres -d agent_db -c "CREATE EXTENSION IF NOT EXISTS vector;"
+docker exec -it aidevs-pgvector psql -U postgres -d agent_db -c "SELECT extname FROM pg_extension WHERE extname = 'vector';"
 ```
 
 과정 루트 `.env`의 연결 주소는 **Container를 최초 생성할 때 사용한 실제 비밀번호**와 같아야
 합니다.
 
 ```dotenv
-DATABASE_URL=postgresql://agent_user:agent_pwd@127.0.0.1:5433/agent_db
+DATABASE_URL=postgresql://postgres:postgres@127.0.0.1:5433/agent_db
 REDIS_URL=redis://127.0.0.1:6379/0
 ```
 
@@ -229,7 +229,7 @@ TASK_TTL_SECONDS=3600
 
 ```powershell
 docker ps --filter "name=aidevs-" --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
-docker exec aidevs-pgvector pg_isready -U agent_user -d agent_db
+docker exec aidevs-pgvector pg_isready -U postgres -d agent_db
 docker exec aidevs-redis redis-cli PING
 docker exec aidevs-ollama ollama list
 ```
