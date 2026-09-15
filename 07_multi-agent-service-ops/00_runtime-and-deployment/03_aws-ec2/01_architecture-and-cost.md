@@ -50,4 +50,3 @@ Amazon Linux 2023도 Docker Application 구조상 사용할 수 있지만 계정
 
 - [EC2 Instance Lifecycle과 비용](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-lifecycle.html)
 - [EC2 Free Tier 사용량 확인](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-free-tier-usage.html)
-
