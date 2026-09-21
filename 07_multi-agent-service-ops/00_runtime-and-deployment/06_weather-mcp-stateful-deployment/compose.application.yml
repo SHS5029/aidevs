@@ -1,8 +1,10 @@
+# Application 3개만 정의합니다. PostgreSQL·Redis는 .env.docker의 URL로 접속하는 외부 저장소입니다.
 name: weather-mcp-application
 services:
   weather-mcp:
     build: ./mcp_server
     networks: [weather-stateful]
+    # 내부 Service에만 열어 두고 Host에는 공개하지 않습니다.
     expose: ["8010"]
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8010/health')"]
@@ -11,17 +13,11 @@ services:
       retries: 10
   backend:
     build: ./backend
-    environment:
-      WEATHER_MCP_URL: http://weather-mcp:8010/mcp
-      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@database:5432/${POSTGRES_DB:-agent_db}
-      REDIS_URL: redis://redis:6379/0
-      WEATHER_CACHE_TTL_SECONDS: ${WEATHER_CACHE_TTL_SECONDS:-600}
-      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
-      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-4.1-mini}
-      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
-      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-3.5-flash}
-    ports: ["8000:8000"]
+    # 저장소 URL과 LLM Key는 모두 이 파일에서 읽습니다. Image에 값을 굽지 않습니다.
+    env_file: [.env.docker]
     networks: [weather-stateful]
+    # Frontend는 Container 이름으로 접근하므로 Host에는 Loopback만 공개합니다.
+    ports: ["127.0.0.1:8000:8000"]
     depends_on:
       weather-mcp:
         condition: service_healthy
@@ -39,7 +35,7 @@ services:
     depends_on:
       backend:
         condition: service_healthy
+# Application Compose가 Network를 직접 만듭니다. 인프라 Compose 실행 순서에 의존하지 않습니다.
 networks:
   weather-stateful:
-    external: true
     name: weather-stateful

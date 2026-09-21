@@ -1,5 +1,5 @@
 {
-  "lastQuery": "'/Users/shsmac/aidevs/07_multi-agent-service-ops/00_runtime-and-deployment/05_weather-mcp-deployment-project'\n\n지금 커밋, 푸쉬하면 ec2에서 도커 자동으로 빌드, up 되는 설정이야?",
+  "lastQuery": "Run ssh \"$AWS_USER@$AWS_HOST\" 'mkdir -p ~/weather-mcp-deployment'\nLoad key \"/home/runner/.ssh/id_ed25519\": error in libcrypto\n***@***: Permission denied (publickey).\nError: Process completed with exit code 255.",
   "perAgentQuery": {},
   "graftReads": 0,
   "sourceReads": 0,
