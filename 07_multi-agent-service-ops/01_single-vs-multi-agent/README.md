@@ -289,11 +289,15 @@ Llama와 Gemma는 같은 Ollama API를 사용하지만 서로 다른 Model입니
 `ollama`와 `gemma`는 서로 다른 서버를 뜻하는 것이 아니라 Llama와 Gemma를 구분하기
 위한 논리적인 Provider 이름입니다.
 
+현재 이 디렉터리의 기본 실행 설정은 모든 Agent Provider를 `gemini`로 지정하며,
+Gemini 3.7 Flash(`gemini-3.7-flash`)를 사용합니다. 아래의 다른 Provider 설정은
+비교용 호환 경로로만 남아 있습니다.
+
 ```dotenv
 OPENAI_API_KEY=본인의_API_KEY
 OPENAI_MODEL=gpt-4.1-mini
 GEMINI_API_KEY=본인의_API_KEY
-GEMINI_MODEL=gemini-3.5-flash
+GEMINI_MODEL=gemini-3.7-flash
 OLLAMA_BASE_URL=http://127.0.0.1:11434
 OLLAMA_MODEL=llama3.2
 GEMMA_MODEL=gemma3:4b
@@ -319,7 +323,7 @@ docker exec aidevs-ollama ollama pull gemma3:4b
 | Agent | 논리 Provider | 실제 Model |
 | --- | --- | --- |
 | Budget/Writer Agent | `openai` | GPT (`gpt-4.1-mini`) |
-| Weather/Evaluator Agent | `gemini` | Gemini (`gemini-3.5-flash`) |
+| Weather/Evaluator Agent | `gemini` | Gemini (`gemini-3.7-flash`) |
 | Place/Developer Agent | `ollama` | Llama (`llama3.2`) |
 | Safety/Reviewer Agent | `gemma` | Gemma (`gemma3:4b`) |
 

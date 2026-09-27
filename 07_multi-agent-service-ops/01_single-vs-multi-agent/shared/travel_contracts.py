@@ -1,5 +1,4 @@
 from typing import Literal
-from typing_extensions import TypedDict
 
 from pydantic import BaseModel, Field, model_validator
 
@@ -118,18 +117,12 @@ class SafetyResult(BaseModel):
     required_actions: list[str] = Field(min_length=1, max_length=6)
 
 
-BudgetBreakdown = TypedDict(
-    "BudgetBreakdown",
-    {"교통": int, "숙박": int, "식비": int, "예비비": int},
-)
-
-
 class BudgetResult(BaseModel):
     """Budget Agent의 항목별 금액과 합계 계약입니다."""
 
     agent_id: Literal["budget_agent"] = "budget_agent"
     currency: Literal["KRW"] = "KRW"
-    breakdown: BudgetBreakdown
+    breakdown: dict[str, int]
     total: int = Field(ge=0)
 
     @model_validator(mode="after")

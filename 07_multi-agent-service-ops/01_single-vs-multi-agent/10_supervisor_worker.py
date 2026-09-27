@@ -10,7 +10,7 @@
     무엇이 다를까요?
 
 범위:
-    Worker는 실제 Gemini·Llama·Gemma를 사용하고 Python Supervisor가 허용 순서와
+    모든 Worker는 Gemini 3.7 Flash를 사용하고 Python Supervisor가 허용 순서와
     최대 단계를 통제합니다. 동적 LLM Supervisor는 03에서 확장합니다.
 """
 

@@ -35,7 +35,7 @@ def travel_agent(request: str, provider: str) -> dict:
 
 
 if __name__ == "__main__":
-    provider = os.getenv("LLM_PROVIDER", "openai")
+    provider = os.getenv("LLM_PROVIDER", "gemini")
     for number, request in enumerate(REQUESTS, start=1):
         print(f"\n=== 요청 {number}: {request} ===")
         response = travel_agent(request, provider)

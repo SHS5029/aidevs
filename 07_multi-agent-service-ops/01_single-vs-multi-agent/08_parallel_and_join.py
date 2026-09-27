@@ -8,8 +8,8 @@
     어떤 작업이 독립적이며, Join 전에 반드시 준비돼야 하는 결과는 무엇일까요?
 
 범위:
-    GPT·Gemini·Llama·Gemma Agent 결과를 사용합니다. Thread 병렬 실행은 04에서
-    구현하고 여기서는 독립 호출과 필수 Join 경계에 집중합니다.
+    Gemini 3.7 Flash Agent 결과를 사용합니다. Thread 병렬 실행은 04에서 구현하고
+    여기서는 독립 호출과 필수 Join 경계에 집중합니다.
 """
 
 from shared.travel_llm import run_learning_agent

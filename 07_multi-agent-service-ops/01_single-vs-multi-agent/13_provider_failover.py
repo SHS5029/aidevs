@@ -1,9 +1,9 @@
 """Lab 01-13: 실제 LLM Provider Failover를 투명하게 확인합니다.
 
 시나리오:
-    Summary Agent가 먼저 로컬 Gemma를 호출합니다. Gemma Container 또는 Model이
-    준비되지 않아 실패하면 GPT를 두 번째 후보로 호출합니다. 첫 실패를 감추거나
-    Mock 답변으로 바꾸지 않고 attempts에 모든 시도와 오류를 남깁니다.
+    Summary Agent가 Gemini 3.7 Flash를 호출합니다. 첫 호출이 실패하면 같은 모델을
+    두 번째 후보로 재시도합니다. 첫 실패를 감추거나 Mock 답변으로 바꾸지 않고
+    attempts에 모든 시도와 오류를 남깁니다.
 
 학습 질문:
     Failover로 최종 응답에 성공했더라도 어떤 Provider가 먼저 실패했는지 운영자가
@@ -20,7 +20,7 @@ def summary_agent(request: str) -> dict:
         agent_id="summary_agent",
         goal="여러 Agent 결과를 사용자가 이해하기 쉬운 세 문장으로 요약한다.",
         request=request,
-        providers=("gemma", "openai"),
+        providers=("gemini", "gemini"),
     )
 
 

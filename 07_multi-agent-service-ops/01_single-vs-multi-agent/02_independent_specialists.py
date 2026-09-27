@@ -2,8 +2,8 @@
 
 시나리오:
     Weather·Place·Budget·Safety Agent가 같은 여행 요청을 각각 처리합니다.
-    GPT·Gemini·Llama·Gemma를 하나씩 배정하지만 Agent마다 독립
-    Goal은 있지만 누가 실행 순서를 정하고 결과를 합치며 전체 완료를 선언하는지는
+    모든 Specialist가 Gemini 3.7 Flash를 사용하지만 Agent마다 독립 Goal은 있고,
+    누가 실행 순서를 정하고 결과를 합치며 전체 완료를 선언하는지는
     아직 구현하지 않습니다.
 
 학습 질문:
