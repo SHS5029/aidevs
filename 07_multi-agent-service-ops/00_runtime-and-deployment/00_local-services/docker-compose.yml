@@ -28,4 +28,3 @@ volumes:
   multi-agent-postgres-data:
   multi-agent-redis-data:
   multi-agent-ollama-data:
-

@@ -35,3 +35,6 @@ temp/
 # Local instructor-only materials
 00_course-guide/04_instructor-guide/
 .vscode/zsh/.zsh_history
+
+# graft's local graph cache — regenerable, not committed (run `graft build`).
+/graft/

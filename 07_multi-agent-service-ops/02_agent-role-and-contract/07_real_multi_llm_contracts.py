@@ -1,12 +1,12 @@
-"""Lab 02-07: 네 실제 AI Agent가 역할별 출력 계약을 지키는지 확인합니다.
+"""Lab 02-07: Gemini를 사용하는 네 AI Agent가 역할별 출력 계약을 지키는지 확인합니다.
 
 시나리오:
     하나의 부산 여행 요청을 Weather, Place, Budget, Safety Agent가 각자의 관점에서
-    처리합니다. 네 Agent는 Gemini, Llama, GPT, Gemma를 하나씩 사용하고 서로 다른
+    처리합니다. 네 Agent는 모두 Gemini API를 사용하고 서로 다른
     Pydantic 계약으로 결과를 반환합니다.
 
 학습 질문:
-    Provider가 달라져도 Agent 사이의 출력 계약을 동일한 방식으로 검증할 수 있을까요?
+    같은 Gemini API를 사용해도 Agent별 출력 계약을 검증할 수 있을까요?
 
 확인할 내용:
     실제 Provider, Model, 지연 시간, 결과 또는 오류를 그대로 출력합니다. Provider

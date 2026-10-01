@@ -1,8 +1,8 @@
 """Lab 02-08: 검증된 Agent 결과만 다음 Agent의 Context로 전달합니다.
 
 시나리오:
-    GPT Budget Agent가 부산 여행 예산을 작성합니다. Python은 BudgetResult 계약 검증이
-    성공한 경우에만 그 결과를 Gemma Itinerary Agent에게 전달합니다. 첫 Agent가
+    Gemini Budget Agent가 부산 여행 예산을 작성합니다. Python은 BudgetResult 계약 검증이
+    성공한 경우에만 그 결과를 Gemini Itinerary Agent에게 전달합니다. 첫 Agent가
     실패하면 두 번째 Agent는 실행하지 않습니다.
 
 학습 질문:
@@ -10,7 +10,7 @@
     문제가 생길까요?
 
 확인할 내용:
-    이 예제는 복잡한 Orchestration이 아니라 계약 경계만 다룹니다. 실제 GPT와 Gemma를
+    이 예제는 복잡한 Orchestration이 아니라 계약 경계만 다룹니다. 실제 Gemini API를
     호출하며 오류를 고정된 성공 데이터로 대체하지 않습니다.
 """
 
