@@ -7,7 +7,7 @@ workers:
   place_agent:
     name: 장소 검색 Agent
     goal: 대중교통으로 방문할 장소와 선택 근거를 작성한다.
-    provider: ollama
+    provider: gemini
     output_contract: PlaceResult
   budget_agent:
     name: 예산 계산 Agent

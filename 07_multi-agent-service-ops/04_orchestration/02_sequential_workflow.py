@@ -12,6 +12,8 @@
     Skip합니다. 정상 흐름에서는 실제 LLM을 최대 3회 호출합니다.
 """
 
+from typing import cast
+
 from shared.travel_llm import run_learning_agent
 
 
@@ -26,18 +28,24 @@ def sequential_orchestrator_agent(request: str) -> dict[str, object]:
     context: object | None = None
     results: dict[str, object] = {}
     trace: list[dict[str, object]] = []
+    print("Starting sequential orchestration...")
     for agent_id, goal in STEPS:
+        print(f"Running agent: {agent_id} with goal: {goal}")
         response = run_learning_agent(agent_id, goal, request, context)
+        print(f"Agent {agent_id} response: {response}")
         trace.append({"actor": agent_id, "provider": response["provider_requested"], "model": response["model"], "error": response["error"]})
         if response["error"]:
+            print(f"Agent {agent_id} failed with error: {response['error']}")
             return {"status": "failed", "reason": f"{agent_id}_failed", "results": results, "trace": trace}
         results[agent_id] = response["result"]
         context = response["result"]
+    print("Sequential orchestration completed successfully.")
     return {"status": "completed", "reason": "all_steps_completed", "results": results, "trace": trace}
 
+    context = response["result"]
 
 if __name__ == "__main__":
     result = sequential_orchestrator_agent("부산을 처음 방문하는 사람을 위한 짧은 안내문을 작성해 주세요.")
     print(result)
     print("전체 상태:", result["status"])
-    print("실행된 Agent:", list(result["results"]))
+    print("실행된 Agent:", list(cast(dict[str, object], result["results"])))

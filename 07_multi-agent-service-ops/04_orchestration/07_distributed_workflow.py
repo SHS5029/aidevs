@@ -1,7 +1,7 @@
 """Lab 04-07: 실제 네 AI Agent의 병렬 실행, Join, State와 Trace를 통합합니다.
 
 시나리오:
-    Gemini Weather, Llama Place, GPT Budget Agent가 부산 여행 요청을 병렬 처리합니다.
+    Gemini Weather, Gemini Place, GPT Budget Agent가 부산 여행 요청을 병렬 처리합니다.
     Main Thread의 Orchestrator가 결과를 검증해 Shared State에 기록합니다. Weather와
     Budget 필수 결과가 성공하면 선택 결과인 Place가 실패해도 Join을 진행할 수 있습니다.
 
@@ -16,6 +16,7 @@
 
 import json
 from concurrent.futures import ThreadPoolExecutor, TimeoutError, as_completed
+from typing import Literal
 
 from shared.travel_contracts import BudgetResult, ItineraryResult, PlaceResult, WeatherResult
 from shared.travel_llm import provider_for_agent, run_with_metadata
@@ -52,7 +53,7 @@ def itinerary_agent(context: dict[str, object]) -> dict:
     return run_with_metadata(provider_for_agent("itinerary_agent"), prompt, ItineraryResult)
 
 
-def add_trace(state: CollaborationState, actor: str, action: str, status: str, response: dict | None = None) -> None:
+def add_trace(state: CollaborationState, actor: str, action: str, status: Literal["started", "completed", "failed", "blocked", "skipped"], response: dict | None = None) -> None:
     response = response or {}
     state.trace.append(TraceEvent(
         step=len(state.trace) + 1,
